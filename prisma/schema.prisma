@@ -32,10 +32,7 @@ model Product {
 enum UPDATE_STATUS {
   IN_PROGRESS
   SHIPPED
-  DELIVERED
-  CANCELLED
   DEPRECATED
-  DEPLOYED
 }
 
 model Update {
