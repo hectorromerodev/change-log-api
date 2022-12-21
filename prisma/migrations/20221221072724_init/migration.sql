@@ -2,27 +2,27 @@
 CREATE TYPE "UPDATE_STATUS" AS ENUM ('IN_PROGRESS', 'SHIPPED', 'DELIVERED', 'CANCELLED', 'DEPRECATED', 'DEPLOYED');
 
 -- CreateTable
-CREATE TABLE "Users" (
+CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "Users_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Products" (
+CREATE TABLE "Product" (
     "id" TEXT NOT NULL,
     "name" VARCHAR(255) NOT NULL,
     "belongsToId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "Products_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Updates" (
+CREATE TABLE "Update" (
     "id" TEXT NOT NULL,
     "title" VARCHAR(100) NOT NULL,
     "body" VARCHAR(500) NOT NULL,
@@ -33,11 +33,11 @@ CREATE TABLE "Updates" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "Updates_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Update_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "UpdatePoints" (
+CREATE TABLE "UpdatePoint" (
     "id" TEXT NOT NULL,
     "name" VARCHAR(100) NOT NULL,
     "description" VARCHAR(500) NOT NULL,
@@ -45,17 +45,17 @@ CREATE TABLE "UpdatePoints" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "UpdatePoints_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "UpdatePoint_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Users_username_key" ON "Users"("username");
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 
 -- AddForeignKey
-ALTER TABLE "Products" ADD CONSTRAINT "Products_belongsToId_fkey" FOREIGN KEY ("belongsToId") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Product" ADD CONSTRAINT "Product_belongsToId_fkey" FOREIGN KEY ("belongsToId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Updates" ADD CONSTRAINT "Updates_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Products"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Update" ADD CONSTRAINT "Update_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UpdatePoints" ADD CONSTRAINT "UpdatePoints_updateId_fkey" FOREIGN KEY ("updateId") REFERENCES "Updates"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "UpdatePoint" ADD CONSTRAINT "UpdatePoint_updateId_fkey" FOREIGN KEY ("updateId") REFERENCES "Update"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
