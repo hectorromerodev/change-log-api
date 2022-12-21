@@ -4,6 +4,8 @@ import cors from 'cors';
 
 import router from './router';
 
+import { protect } from './modules/auth';
+
 const app = express();
 
 // Settings
@@ -24,7 +26,7 @@ app.get('/', (req, res) => {
     res.json({message: 'Hello World'});
 });
 
-app.use('/api', router);
+app.use('/api', protect, router);
 
 
 export default app;
