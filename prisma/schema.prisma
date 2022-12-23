@@ -27,6 +27,8 @@ model Product {
   updates     Update[]
 
   createdAt DateTime @default(now())
+
+  @@unique([id, belongsToId])
 }
 
 enum UPDATE_STATUS {
