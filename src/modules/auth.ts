@@ -16,7 +16,7 @@ export const hashPassword = (password: string) => {
 
 export const createJWT = (user: User) => {
     const { id, username } = user;
-    const token = jwtSign({ id, username }, JWT_SECRET, { expiresIn: '1h' });
+    const token = jwtSign({ id, username }, JWT_SECRET);
     return token;
 }
 
