@@ -7,8 +7,8 @@
     "start": "ts-node src/index.ts",
     "dev": "ts-node-dev --respawn src/index.ts",
     "build": "tsc",
-    "prisma": "prisma",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prisma:studio": "npx prisma studio",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
