@@ -17,10 +17,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 // Custom middleware
-app.use((req, res, next) => {
-    console.log('Custom middleware - Time: ', Date.now());
-    next();
-});
+// app.use((req, res, next) => {
+//     console.log('Custom middleware - Time: ', Date.now());
+//     next();
+// });
 
 
 app.get('/', (req, res) => {
