@@ -3,6 +3,7 @@ import { body, validationResult, oneOf } from 'express-validator';
 import { handleInputErrors } from './middlewares/validations';
 import { createProduct, deleteProduct, getOneProduct, getProducts, updateProduct } from './handlers/product';
 import { createUpdate, deleteUpdate, getOneUpdate, getUpdates, updateUpdate } from './handlers/update';
+import errorHandler from './handlers/errorHandler';
 
 const router = Router();
 
@@ -53,5 +54,6 @@ router.post('/updatepoint',
     createUpdate);
 router.delete('/updatepoint/:id', deleteUpdate);
 
+router.use(errorHandler)
 
 export default router;

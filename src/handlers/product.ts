@@ -3,8 +3,8 @@ import prisma from "../db";
 
 // GET ALL PRODUCTS
 export const getProducts = async (req: Request, res: Response, next: NextFunction) => {
-    const { id } = req.body.user;
     try {
+        const { id } = req.body.user;
         const user = await prisma.user.findUnique({
             where: {
                 id
@@ -24,9 +24,9 @@ export const getProducts = async (req: Request, res: Response, next: NextFunctio
 
 // GET ONE PRODUCT
 export const getOneProduct = async (req: Request, res: Response, next: NextFunction) => {
-    const { id } = req.params;
-    const userId = req.body.id;
     try {
+        const { id } = req.params;
+        const userId = req.body.id;
         const product = await prisma.product.findFirst({
             where: {
                 id,
@@ -44,30 +44,28 @@ export const getOneProduct = async (req: Request, res: Response, next: NextFunct
 
 // CREATE PRODUCT
 export const createProduct = async (req: Request, res: Response, next: NextFunction) => {
-    const { name } = req.body;
-    const userId = req.body.user.id;
     try {
+        const { name } = req.body;
+        const userId = req.body.user.id;
         const product = await prisma.product.create({
             data: {
                 name,
                 belongsToId: userId,
             }
         });
-        res.status(200);
-        res.json({
-            data: product
-        });
-    } catch (error) {
+        res.status(200).json({ data: product });
+    } catch (error: any) {
+
         next(error);
     }
 };
 
 // UPDATE PRODUCT
 export const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
-    const { id } = req.params;
-    const { name } = req.body;
-    const userId = req.body.user.id;
     try {
+        const { id } = req.params;
+        const { name } = req.body;
+        const userId = req.body.user.id;
         const product = await prisma.product.update({
             where: {
                 id_belongsToId: {
@@ -90,9 +88,9 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
 
 // DELETE PRODUCT
 export const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
-    const { id } = req.params;
-    const userId = req.body.user.id;
     try {
+        const { id } = req.params;
+        const userId = req.body.user.id;
         const product = await prisma.product.delete({
             where: {
                 id_belongsToId: {
