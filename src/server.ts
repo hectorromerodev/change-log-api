@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { ErrorRequestHandler, NextFunction, Request, RequestHandler, Response } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 
@@ -6,6 +6,7 @@ import router from './router';
 
 import { protect } from './modules/auth';
 import { createUser, signIn } from './handlers/user';
+import errorHandler from './handlers/errorHandler';
 
 const app = express();
 
@@ -23,8 +24,8 @@ app.use((req, res, next) => {
 
 
 app.get('/', (req, res) => {
-    res.status(200);
-    res.json({message: 'Hello World'});
+    res.status(200).json({message: 'Hello World'});
+
 });
 
 // PRIVATE ROUTES
@@ -34,5 +35,7 @@ app.use('/api', protect, router);
 app.post('/user', createUser);
 app.post('/signin', signIn);
 
+// ERROR HANDLER
+app.use(errorHandler);    
 
 export default app;
