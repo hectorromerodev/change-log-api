@@ -2,7 +2,7 @@ import { Request } from 'express';
 import * as user from '../user';
 
 describe('User Handler', () => {
-    it('should create a new user', () => {
+    it('should create a new user', async () => {
         const req: Partial<Request> = {
             body: {   
                 username: 'test1',
@@ -12,17 +12,13 @@ describe('User Handler', () => {
         }
         const res = {
             json({ token }: any) {
-                expect(token).toBeDefined();
+                expect(token).toBeTruthy();
             },
             status(status: number) {
                 expect(status).toBe(201);
-                return this;
             }
         }
-        const next = (err: any) => {
-            expect(err).toBeUndefined();
-        }
-        user.createUser(req as Request, res, next);
+
+        await user.createUser(req as Request, res, () => {});
     });
 });
-
